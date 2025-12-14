@@ -1,0 +1,241 @@
+{
+  "name": "Flusso 2",
+  "nodes": [
+    {
+      "parameters": {
+        "trigger": [
+          "message"
+        ],
+        "channelId": {
+          "__rl": true,
+          "value": "C09FHT98TB4",
+          "mode": "list",
+          "cachedResultName": "nuovo-canale"
+        },
+        "options": {}
+      },
+      "id": "b6076478-cd48-4cbc-8ece-f3abfd066dce",
+      "name": "Slack Trigger",
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [
+        80,
+        128
+      ],
+      "webhookId": "3c693afe-f3a4-4053-8c5c-22b82763b238",
+      "credentials": {
+        "slackApi": {
+          "id": "m1TsDMGuX9zpvfa2",
+          "name": "Slack account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "={{$json[\"fileName\"]}}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1Jj86mioOLkm_kqor249ioti6OXrLvuuN",
+          "mode": "list",
+          "cachedResultName": "Cartella Test",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1Jj86mioOLkm_kqor249ioti6OXrLvuuN"
+        },
+        "options": {}
+      },
+      "id": "fa899a1a-c9c0-4b4a-b41f-b4bc0e359901",
+      "name": "Google Drive - Crea File",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        592,
+        128
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "qPMxPbXEkiB184Lw",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "ileniaunida2493@gmail.com",
+        "subject": "Nuovo messaggio Slack",
+        "message": "={{$json[\"message\"]}}",
+        "options": {
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {}
+            ]
+          }
+        }
+      },
+      "id": "ead2cd82-8f15-42a9-89f0-e7f884601e59",
+      "name": "Gmail - Invia Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [
+        592,
+        448
+      ],
+      "webhookId": "274cba91-4d72-47ca-aaa4-352b3e4e9b54",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "CGksUiurAdsIZwDF",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Nodo slack trigger pinnato\n\nRuolo: Riceve i messaggi da Slack\n\n",
+        "height": 112,
+        "width": 214
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "f6fcf2d6-bc8c-4314-a776-ed72d7871248",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $json.text || 'Nessun testo';\nconst fileName = `slack_${Date.now()}.txt`;\nreturn [{\n  json: { fileName, message: text },\n  binary: {\n    data: {\n      data: Buffer.from(text).toString('base64'),\n      mimeType: 'text/plain',\n      fileName\n    }\n  }\n}];"
+      },
+      "id": "870c9c91-ff7f-4e0e-b762-eeead569e53d",
+      "name": "Centro di commando",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        336,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Centro di commando\nRuolo: \n-legge il messaggio slack\n-Prepara i dati per Drive e Gmail",
+        "height": 96
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        288,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "9957afa8-e316-4002-a565-f0c571b0673b",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "Crea file\nRuolo:\ncrea un file txt sul drive che contiene il messaggio del post su slack",
+        "height": 96,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        560,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "22782840-2662-4484-8113-2c68cbcce73f",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "Invia Email\nRuolo: invia una mail con allegato un file txt ",
+        "height": 112,
+        "width": 256
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        560,
+        304
+      ],
+      "typeVersion": 1,
+      "id": "626ff879-dbf1-46ff-9d5b-829dc70976e8",
+      "name": "Sticky Note3"
+    }
+  ],
+  "pinData": {
+    "Slack Trigger": [
+      {
+        "json": {
+          "user": "U09FFKW9M7X",
+          "type": "message",
+          "ts": "1758976141.019479",
+          "client_msg_id": "e02cad81-34a9-4b14-be65-4e83df7a166d",
+          "text": "testo di prova",
+          "team": "T09FFKW9M2R",
+          "blocks": [
+            {
+              "type": "rich_text",
+              "block_id": "Zd1Nu",
+              "elements": [
+                {
+                  "type": "rich_text_section",
+                  "elements": [
+                    {
+                      "type": "text",
+                      "text": "testo di prova"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "channel": "C09FHT98TB4",
+          "event_ts": "1758976141.019479",
+          "channel_type": "channel"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Slack Trigger": {
+      "main": [
+        [
+          {
+            "node": "Centro di commando",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Centro di commando": {
+      "main": [
+        [
+          {
+            "node": "Google Drive - Crea File",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Gmail - Invia Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "be511b98-77a8-433e-8b68-48a1853f4706",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3eade08974c65ea0e714de990b1c4d4deb3f525e0d19f574aa90538cacfd42e4"
+  },
+  "id": "wNHqBJA9X5fwOF2n",
+  "tags": []
+}
